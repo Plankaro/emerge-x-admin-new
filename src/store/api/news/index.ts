@@ -7,10 +7,10 @@ export const NewsApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081/v1/" }),
     tagTypes: ["News"],
     endpoints: (builder) => ({
-        getNews: builder.query<ResponseType, { page: number; limit: number }>({
+        getNews: builder.query<any, { page: number; limit: number }>({
             query: ({ page, limit }) => `news?page=${page}&limit=${limit}`,
         }),
-        getSingleNews: builder.query<ResponseType, { id: string }>({
+        getSingleNews: builder.query<any, { id: string }>({
             query: ({ id }) => `news/${id}`,
         }),
         createNews: builder.mutation<ResponseType, NewsFormData>({
@@ -40,10 +40,10 @@ export const NewsApi = createApi({
 });
 
 export const {
-useGetNewsQuery,
-useGetSingleNewsQuery,
-useDeleteNewsMutation,
-useUpdateNewsMutation,
-useCreateNewsMutation
+    useGetNewsQuery,
+    useGetSingleNewsQuery,
+    useDeleteNewsMutation,
+    useUpdateNewsMutation,
+    useCreateNewsMutation
 } = NewsApi;
 export const { getNews } = NewsApi.endpoints;

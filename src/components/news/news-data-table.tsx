@@ -167,9 +167,7 @@ export function NewsDataTable({ data, refetch }: { data: NewsResponseType[], ref
                     }
                     className="max-w-sm"
                 />
-                <Link href={'news/add-new'} className="ml-12">
-                    <Button className="bg-[#3DA229B3] hover:bg-[#3DA229] text-white">Add News</Button>
-                </Link>
+
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto">

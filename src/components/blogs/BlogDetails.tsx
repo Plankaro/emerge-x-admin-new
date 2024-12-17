@@ -92,17 +92,17 @@ const BlogDetails = () => {
 
     return (
         <div>
-            <Button
-                onClick={handleHeroDialogOpen}
-                className="bg-[#3DA229B3] hover:bg-[#3DA229] text-white px-4 py-2 rounded-md mb-2"
-            >
-                Edit Hero Section
-            </Button>
-            <div className="border rounded-lg p-4">
+
+            <div className=" rounded-lg p-4">
                 <div className="mx-auto">
                     <div className="sm:flex sm:justify-between mb-6">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Blogs List</h2>
                         <div className="flex flex-wrap gap-2">
+                            <Button
+                                onClick={handleHeroDialogOpen}
+                                className="bg-[#3DA229B3] hover:bg-[#3DA229] text-white px-4 py-2 rounded-md mb-2"
+                            >
+                                Edit Hero Section
+                            </Button>
                             <Link href={'blogs/add-new'}>
                                 <Button
                                     className="bg-[#3DA229B3] hover:bg-[#3DA229] text-white px-4 py-2 rounded-md"

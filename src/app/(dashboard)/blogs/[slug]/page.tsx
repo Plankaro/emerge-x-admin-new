@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
 import { useCreateBlogMutation, useGetSingleBlogQuery, useUpdateBlogMutation } from "@/store/api/blogs";
-import MyStatefulEditor from "@/components/blogs/ritch-text-editor";
 import RichTextEditor from "@/components/blogs/ritch-text-editor";
 
 export interface BlogsFormData {
@@ -18,17 +17,7 @@ export interface BlogsFormData {
 }
 
 
-export const defaultEditorContent = {
-    type: 'doc',
-    content: [
-        {
-            type: 'paragraph',
-            content: []
-        }
-    ]
-}
-
-const Page = () => {
+const BlogDetailsPage = () => {
     const {
         register,
         handleSubmit,
@@ -84,13 +73,28 @@ const Page = () => {
         setIsLoading(false)
     }, [BlogsData]);
 
+    const isBase64 = (str: string) => {
+        // A regex to check if the string is base64
+        const base64Regex = /^([A-Za-z0-9+/=]{4})*(?:[A-Za-z0-9+/=]{2}==|[A-Za-z0-9+/=]{3}=)?$/;
+        return base64Regex.test(str);
+    };
 
+    const isS3Url = (url: string) => {
+        const s3UrlRegex = /^https:\/\/emerge-x-web\.s3\.us-east-1\.amazonaws\.com\//;
+        return s3UrlRegex.test(url);
+    };
 
     const handleHeroSubmit = async (data: BlogsFormData) => {
         console.log(data)
         setIsLoading(true)
         if (id !== "add-new") {
             try {
+                const updatedData = {
+                    ...data,
+                    bannerImage: isS3Url(data?.bannerImage as string) ? null : data.bannerImage,
+                    futureImages: isS3Url(data?.futureImages as string) ? null : data.futureImages,
+                };
+                console.log("🚀 ~ handleHeroSubmit ~ updatedData:", updatedData)
                 await updateBlog({ id: id as string, data }).unwrap();
                 toast.success("Blogs updated successfully!");
                 router.push("/blogs");
@@ -302,4 +306,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default BlogDetailsPage;

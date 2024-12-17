@@ -52,19 +52,27 @@ type Blog = {
 
 
 
-export function DataTableDemo({ data, refetch }: { data: Blog[], refetch: () => void }) {
+export function DataTableDemo({ data, refetch }: { data: any[], refetch: () => void }) {
 
     const router = useRouter();
     const [deleteBlog] = useDeleteBlogMutation();
     const handleDelete = async (id: string) => {
         console.log("🚀 ~ handleDelete ~ id:", id)
         if (window.confirm(`Are you sure you want to delete blog with ID: ${id}?`)) {
+
+            const promise = deleteBlog(id).unwrap()
+            toast.promise(promise, {
+                loading: "Deleting blog...",
+                success: "Blog deleted successfully!",
+                error: "Error deleting blog. Please try again.",
+            })
+
             try {
-                await deleteBlog(id).unwrap();
-                toast.success("Blog deleted successfully!");
+                await promise;
+                // toast.success("Blog deleted successfully!");
                 refetch();
             } catch (error) {
-                toast.error("Error deleting blog. Please try again.");
+                // toast.error("Error deleting blog. Please try again.");
                 console.error("Error deleting blog:", error);
             }
         }

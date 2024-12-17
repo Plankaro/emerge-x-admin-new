@@ -20,15 +20,6 @@ export interface NewsSectionData {
 }
 
 
-export const defaultEditorContent = {
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: []
-    }
-  ]
-}
 
 const Page = () => {
   const {
@@ -77,16 +68,27 @@ const Page = () => {
     setSubFeatureImage2Preview(NewsData?.news?.subFeatureImage2 || null);
   }, [NewsData]);
 
+  const isBase64 = (str: string) => {
+    // A regex to check if the string is base64
+    const base64Regex = /^([A-Za-z0-9+/=]{4})*(?:[A-Za-z0-9+/=]{2}==|[A-Za-z0-9+/=]{3}=)?$/;
+    return base64Regex.test(str);
+  };
+
   const handleHeroSubmit = async (data: NewsSectionData) => {
     setIsLoading(true)
     if (id !== "add-new") {
       try {
+        // const updatedData = {
+        //   ...data,
+        //   bannerImage: isBase64(data?.bannerImage as string) ? data.bannerImage : null,
+        //   futureImages: isBase64(data?.futureImages as string) ? data.futureImages : null,
+        // };
         await updateNews({ id: id as string, data }).unwrap();
         toast.success("News updated successfully!");
         router.push("/news");
         setIsLoading(false)
       } catch (error) {
-        toast.error("Error updating news. Please try again.",error);
+        toast.error("Error updating news. Please try again.");
         setIsLoading(false)
       }
     } else {
@@ -97,7 +99,7 @@ const Page = () => {
         router.push("/news");
 
       } catch (error) {
-        toast.error("Error creating blog. Please try again.", error);
+        toast.error("Error creating blog. Please try again.");
         setIsLoading(false)
 
       }
@@ -114,7 +116,7 @@ const Page = () => {
           <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-start">
             News Hero section
           </h2>
-          <form  className="space-y-6">
+          <form className="space-y-6">
             {/* Heading */}
             <div>
               <label
@@ -127,7 +129,7 @@ const Page = () => {
                 id="heroHeading"
                 {...register("heading", {
                   required: "Heading is required",
-                
+
                 })}
                 type="text"
                 className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -351,7 +353,7 @@ const Page = () => {
                 className=" bg-[#3DA229B3] text-white py-2 px-4 rounded-lg shadow-md hover:bg-[#3DA229] focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {
-                  isLoading ? <Loader/>:"Submit"
+                  isLoading ? <Loader /> : "Submit"
                 }
               </Button>
             </div>

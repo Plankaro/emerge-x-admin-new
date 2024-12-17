@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Button } from "../ui/button";
-import Editor from "./editor/editor";
 
 export interface BlogsFormData {
     title: string;
@@ -231,7 +230,6 @@ const BlogsForm: React.FC<BlogsFormProps> = ({ onSubmit, initialData }) => {
                     className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 /> */}
 
-                <Editor initialValue={defaultValue} onChange={setContent} />
                 {errors.htmlBody && (
                     <p className="mt-1 text-[10px] text-red-600">{errors.htmlBody.message}</p>
                 )}
