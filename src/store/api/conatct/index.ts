@@ -3,7 +3,7 @@ import { ContactResponse } from "./types/contact.types";
 
 export const ContactApi = createApi({
     reducerPath: "contactApi",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081/v1/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "https://emerge-x-backend-c2kvq.ondigitalocean.app/v1/" }),
     tagTypes: ["Contact"],
     endpoints: (builder) => ({
         getContacts: builder.query<ContactResponse, { page: number, limit: number }>({

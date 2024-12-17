@@ -3,7 +3,7 @@ import { BlogsFormData } from "./blogs-types";
 
 export const BlogApi = createApi({
     reducerPath: "blog",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081/v1/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "https://emerge-x-backend-c2kvq.ondigitalocean.app/v1/" }),
     tagTypes: ["Blog"],
     endpoints: (builder) => ({
         getBlogs: builder.query<any, { page: number; limit: number }>({

@@ -4,7 +4,7 @@ import { NewsFormData } from "./news-type";
 
 export const NewsApi = createApi({
     reducerPath: "news",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081/v1/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "https://emerge-x-backend-c2kvq.ondigitalocean.app/v1/" }),
     tagTypes: ["News"],
     endpoints: (builder) => ({
         getNews: builder.query<any, { page: number; limit: number }>({
