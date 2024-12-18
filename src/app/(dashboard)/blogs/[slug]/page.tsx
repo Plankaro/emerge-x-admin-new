@@ -10,6 +10,7 @@ import RichTextEditor from "@/components/blogs/ritch-text-editor";
 
 export interface BlogsFormData {
     title: string;
+    authorName: string;
     htmlBody: string;
     description: string;
     bannerImage: string | null;
@@ -37,15 +38,7 @@ const BlogDetailsPage = () => {
     const [heroBannerPreview, setHeroBannerPreview] = useState<string | null>(null);
     const [featureImagePreview, setFeatureImagePreview] = useState<string | null>(null);
 
-    const defaultValue = {
-        type: 'doc',
-        content: [
-            {
-                type: 'paragraph',
-                content: []
-            }
-        ]
-    }
+
 
 
     useEffect(() => {
@@ -68,6 +61,7 @@ const BlogDetailsPage = () => {
         setValue("description", BlogsData?.blog?.description);
         setValue("bannerImage", BlogsData?.blog?.bannerImage);
         setValue("futureImages", BlogsData?.blog?.futureImages);
+        setValue("authorName", BlogsData?.blog?.authorName);
         setHeroBannerPreview(BlogsData?.blog?.bannerImage || null);
         setFeatureImagePreview(BlogsData?.blog?.futureImages || null);
         setIsLoading(false)
@@ -154,6 +148,27 @@ const BlogDetailsPage = () => {
                                         className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                     {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>}
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="authorName"
+                                        className="block text-sm font-medium text-gray-700 mb-2"
+                                    >
+                                        Auther
+                                    </label>
+                                    <input
+                                        id="authorName"
+                                        {...register("authorName", {
+                                            required: "Heading is required",
+                                            maxLength: {
+                                                value: 50,
+                                                message: "Heading must be 50 characters or less",
+                                            },
+                                        })}
+                                        type="text"
+                                        className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+                                    {errors.authorName && <p className="mt-1 text-sm text-red-600">{errors?.authorName?.message}</p>}
                                 </div>
 
                                 {/* Banner Image */}
