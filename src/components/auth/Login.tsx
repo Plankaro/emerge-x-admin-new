@@ -7,6 +7,9 @@ import { Card, CardContent } from "../ui/card";
 import { useRouter } from "next/navigation";
 import { useSignInMutation } from "@/store/api/auth"; // Adjust this path if needed
 import { toast } from "sonner";
+import Image from "next/image";
+
+import logo from "@/assets/main-logo.png"
 
 type LoginFormInputs = {
   email: string;
@@ -51,12 +54,21 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-teal-500">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-black to-[#3DA229B3] ">
       <Card className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
         <CardContent>
-          <h1 className="text-2xl font-semibold text-center mb-6 text-gray-700">
-            Login
-          </h1>
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              src={logo}
+              alt="logo"
+              width={100}
+              height={100}
+              className="mb-4"
+            />
+            <h1 className="text-2xl font-semibold text-center mb-6 text-gray-700">
+              Login
+            </h1>
+          </div>
           <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
             <div>
               <Label htmlFor="email" className="text-sm text-gray-600">
