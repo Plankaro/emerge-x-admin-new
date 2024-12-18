@@ -18,13 +18,26 @@ jobs:
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.4
       with:
-        ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+        ssh-private-key: ${{ secrets.emergex }}
 
     # Step 3: Run commands on AWS VPS
     - name: Deploy and Run App on VPS
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@<your-vps-ip> << 'EOF'
-          cd /home/ubuntu/emege-x-admin-portal
+          cd /home/ubuntu/emerge-x-admin-new
+
+          # Find the process ID (PID) of the program using port 80
+          PID=$(sudo lsof -t -i:80)
+          
+          # Check if a process is running on port 80
+          if [ -n "$PID" ]; then
+            echo "Killing process $PID running on port 80..."
+            sudo kill -9 $PID
+            echo "Process $PID has been terminated."
+          else
+            echo "No process is running on port 80."
+          fi
+          
           git pull origin main
           npm install
           nohup npm run dev &> app.log &
