@@ -38,7 +38,7 @@ export function middleware(request: NextRequest) {
   // Redirect to /sign-in if no token exists for other routes
   if (!token) {
     console.log('-> (m)token missing, redirecting to /sign-in...');
-    return NextResponse.redirect(new URL('/sign-in', "/"));
+    return NextResponse.redirect(new URL('/sign-in', request.url));
   }
 
   // Allow authenticated users to access other routes
