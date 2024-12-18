@@ -44,6 +44,9 @@ export const UserApi = createApi({
         getUserData: builder.query<ResponseType, User>({
             query: () => `/`,
         }),
+        getUserById: builder.query<any, string>({
+            query: (id) => `/user/${id}`,
+        }),
         updateUser: builder.mutation<ResponseType, User>({
             query: (data) => ({
                 url: `/`,
@@ -164,7 +167,8 @@ export const {
     useDeleteEducationMutation,
     useAddCertificationMutation,
     useUpdateCertificationMutation,
-    useDeleteCertificationMutation
+    useDeleteCertificationMutation,
+    useGetUserByIdQuery
 
 } = UserApi;
 export const { getUserData } = UserApi.endpoints;

@@ -29,11 +29,13 @@ export default function Login() {
 
       console.log("lkjlk", response);
 
-      if (response?.user?.token) {
+      if (response?.user?.token && response?.user?._id) {
         console.log(response)
 
         const token = response.user.token
+        const id = response.user._id
         localStorage.setItem("authToken", token);
+        localStorage.setItem("userId", id);
         router.push("/");
         toast("Login successful!");
       } else {
