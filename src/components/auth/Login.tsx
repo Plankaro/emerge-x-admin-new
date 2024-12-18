@@ -27,11 +27,14 @@ export default function Login() {
     try {
       const response = await signIn(data).unwrap();
 
-      console.log("lkjlk", response)
+      console.log("lkjlk", response);
 
       if (response?.user?.token) {
-        router.push("/");
+        console.log(response)
 
+        const token = response.user.token
+        localStorage.setItem("authToken", token);
+        router.push("/");
         toast("Login successful!");
       } else {
         const errorMessage = response?.error || "Login failed.";
@@ -39,21 +42,24 @@ export default function Login() {
       }
     } catch (err: unknown) {
       const errorMessage =
-        (err as { message?: string })?.message || "An error occurred. Please try again.";
+        (err as { message?: string })?.message ||
+        "An error occurred. Please try again.";
       toast(errorMessage);
     }
   };
-
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-teal-500">
       <Card className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
         <CardContent>
-          <h1 className="text-2xl font-semibold text-center mb-6 text-gray-700">Login</h1>
+          <h1 className="text-2xl font-semibold text-center mb-6 text-gray-700">
+            Login
+          </h1>
           <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
             <div>
-              <Label htmlFor="email" className="text-sm text-gray-600">Email</Label>
+              <Label htmlFor="email" className="text-sm text-gray-600">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -68,27 +74,35 @@ export default function Login() {
                 placeholder="Enter your email"
               />
               {errors.email && (
-                <div className="text-red-500 text-sm mt-1">{errors.email.message}</div>
+                <div className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </div>
               )}
             </div>
 
             <div>
-              <Label htmlFor="password" className="text-sm text-gray-600">Password</Label>
+              <Label htmlFor="password" className="text-sm text-gray-600">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
                 {...register("password", {
                   required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+                    message:
+                      "Password must be at least 6 characters, include one uppercase letter, one lowercase letter, one number, and one special character.",
                   },
                 })}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your password"
               />
               {errors.password && (
-                <div className="text-red-500 text-sm mt-1">{errors.password.message}</div>
+                <div className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </div>
               )}
             </div>
 
@@ -100,7 +114,6 @@ export default function Login() {
               {isLoading ? "Logging in..." : "Login"}
             </Button>
           </form>
-
         </CardContent>
       </Card>
     </div>

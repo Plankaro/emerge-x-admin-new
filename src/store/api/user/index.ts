@@ -9,9 +9,12 @@ import {
     User,
 } from "./types/user-types";
 
+
+const api_url = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.DEV_API_URL;
+
 export const UserApi = createApi({
     reducerPath: "user",
-    baseQuery: fetchBaseQuery({ baseUrl: "/api/v1/user" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "/v1" }),
     tagTypes: ["User"],
     endpoints: (builder) => ({
         signup: builder.mutation<ResponseType, CreateUserDto>({
@@ -162,6 +165,6 @@ export const {
     useAddCertificationMutation,
     useUpdateCertificationMutation,
     useDeleteCertificationMutation
-   
+
 } = UserApi;
 export const { getUserData } = UserApi.endpoints;

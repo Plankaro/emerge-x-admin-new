@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { NewsFormData } from "./news-type";
 
-
+const api_url = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.DEV_API_URL;
 export const NewsApi = createApi({
     reducerPath: "news",
-    baseQuery: fetchBaseQuery({ baseUrl: "https://emerge-x-backend-c2kvq.ondigitalocean.app/v1/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "/v1" }),
     tagTypes: ["News"],
     endpoints: (builder) => ({
         getNews: builder.query<any, { page: number; limit: number }>({

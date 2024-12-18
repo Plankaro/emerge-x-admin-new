@@ -1,9 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SessionType, SignInAPI } from "./types/auth-types";
 
+
 export const AuthApi = createApi({
   reducerPath: "auth",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081/v1" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "/v1",
+    credentials: "include",
+  }),
+
   tagTypes: ["Session"],
   endpoints: (builder) => ({
     signIn: builder.mutation<SignInAPI, { email: string; password: string }>({

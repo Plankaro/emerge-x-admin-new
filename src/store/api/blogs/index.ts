@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BlogsFormData } from "./blogs-types";
 
+const api_url = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.DEV_API_URL;
+
 export const BlogApi = createApi({
     reducerPath: "blog",
-    baseQuery: fetchBaseQuery({ baseUrl: "https://emerge-x-backend-c2kvq.ondigitalocean.app/v1/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: `/v1` }),
     tagTypes: ["Blog"],
     endpoints: (builder) => ({
         getBlogs: builder.query<any, { page: number; limit: number }>({
