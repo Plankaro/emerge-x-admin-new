@@ -23,7 +23,7 @@ jobs:
     # Step 3: Run commands on AWS VPS
     - name: Deploy and Run App on VPS
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@<your-vps-ip> << 'EOF'
+        ssh -o StrictHostKeyChecking=no ubuntu@16.16.237.54 << 'EOF'
           cd /home/ubuntu/emerge-x-admin-new
 
           # Find the process ID (PID) of the program using port 80
