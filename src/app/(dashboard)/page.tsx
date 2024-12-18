@@ -12,12 +12,12 @@ const Page: React.FC = () => {
         </div>
       </div> */}
 
-      <div className="flex w-full mt-4 ml-4 gap-4 flex-col md:flex-row">
-        <div className="w-full md:w-1/2">
+      <div className="flex w-full mt-4 gap-4 flex-col lg:flex-row">
+        <div className="w-full lg:w-1/2">
           <RecentBlogs />
         </div>
 
-        <div className="w-full md:w-1/2">
+        <div className="w-full lg:w-1/2">
           <RecentNews />
         </div>
       </div>

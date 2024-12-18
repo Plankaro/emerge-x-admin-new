@@ -2,6 +2,14 @@
 import { useGetBlogsQuery } from '@/store/api/blogs';
 import React, { useEffect, useState } from 'react'
 import Loader from '../Loader';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 
 export interface Blog {
     _id: string;
@@ -37,32 +45,31 @@ export const RecentBlogs: React.FC = () => {
     return (
         <div className="w-full p-4 bg-white shadow-lg rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Recent Blogs</h2>
-            <table className="min-w-full table-auto">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th className="px-4 py-2 text-left">Title</th>
-                        <th className="px-4 py-2 text-left">Description</th>
-                        <th className="px-4 py-2 text-left">Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {blogs?.map((blog, index) => (
-                        <tr key={index} className="border-b">
-                            <td className="px-4 py-2">{blog?.title}</td>
-                            <td className="px-4 py-2">{blog?.description}</td>
-                            <td className="px-4 py-2">{formatDate(blog?.createdAt)}</td>
-                        </tr>
-                    ))}
-                    {
-                        blogs?.length === 0 &&
-                        <tr>
-                            <td colSpan={4}>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Date</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {blogs.length > 0 ? (
+                        blogs.map((blog) => (
+                            <TableRow key={blog._id}>
+                                <TableCell>{blog.title}</TableCell>
+                                <TableCell>{formatDate(blog.createdAt)}</TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={2}>
                                 <Loader />
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+
         </div>
     )
 }

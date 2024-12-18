@@ -2,6 +2,16 @@
 import { useGetNewsQuery } from '@/store/api/news'
 import React, { useEffect, useState } from "react";
 import Loader from '../Loader';
+import { formatDate } from '@/utils/format-date';
+
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 
 interface Card {
     heading: string;
@@ -14,6 +24,7 @@ interface Card {
     featureImage: string | null;
     subFeatureImage1: string | null;
     subFeatureImage2: string | null;
+    createdAt: string;
 }
 
 export const RecentNews: React.FC = () => {
@@ -30,32 +41,31 @@ export const RecentNews: React.FC = () => {
     return (
         <div className="w-full p-4 bg-white shadow-lg rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Recent News</h2>
-            <table className="min-w-full table-auto">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th className="px-4 py-2 text-left">Title</th>
-                        <th className="px-4 py-2 text-left">Author</th>
-                        <th className="px-4 py-2 text-left">Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {newsArticles?.map((news, index) => (
-                        <tr key={index} className="border-b">
-                            <td className="px-4 py-2">{news.heading}</td>
-                            <td className="px-4 py-2">{news.description1}</td>
-                            <td className="px-4 py-2">{news.description2}</td>
-                        </tr>
-                    ))}
-                    {
-                        newsArticles?.length === 0 &&
-                        <tr>
-                            <td colSpan={4}>
+
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Date</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {newsArticles && newsArticles?.length > 0 ? (
+                        newsArticles?.map((news) => (
+                            <TableRow key={news._id}>
+                                <TableCell>{news.heading}</TableCell>
+                                <TableCell>{formatDate(news?.createdAt)}</TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={2}>
                                 <Loader />
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
         </div>
     )
 }

@@ -30,25 +30,17 @@ export default function Login() {
     try {
       const response = await signIn(data).unwrap();
 
-      console.log("lkjlk", response);
-
       if (response?.user?.token && response?.user?._id) {
-        console.log(response)
-
-        const token = response.user.token
-        const id = response.user._id
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("userId", id);
+        localStorage.setItem("authToken", response.user.token);
+        localStorage.setItem("userId", response.user._id);
         router.push("/");
         toast("Login successful!");
       } else {
-        const errorMessage = response?.error || "Login failed.";
-        toast(errorMessage);
+        toast(response?.error || "Login failed.");
       }
-    } catch (err: unknown) {
-      const errorMessage =
-        (err as { message?: string })?.message ||
-        "An error occurred. Please try again.";
+    } catch (err: any) {
+      // Display error messages but do not modify form state
+      const errorMessage = err?.data?.message || "An error occurred. Please try again.";
       toast(errorMessage);
     }
   };
