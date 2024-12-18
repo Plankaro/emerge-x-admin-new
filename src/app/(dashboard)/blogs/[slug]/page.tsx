@@ -95,7 +95,7 @@ const BlogDetailsPage = () => {
                     futureImages: isS3Url(data?.futureImages as string) ? null : data.futureImages,
                 };
                 console.log("🚀 ~ handleHeroSubmit ~ updatedData:", updatedData)
-                await updateBlog({ id: id as string, data }).unwrap();
+                await updateBlog({ id: id as string, data: updatedData }).unwrap();
                 toast.success("Blogs updated successfully!");
                 router.push("/blogs");
                 setIsLoading(false)

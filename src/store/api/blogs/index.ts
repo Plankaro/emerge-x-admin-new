@@ -20,7 +20,7 @@ export const BlogApi = createApi({
             }),
             invalidatesTags: ["Blog"],
         }),
-        updateBlog: builder.mutation<any, { id: string; data: BlogsFormData }>({
+        updateBlog: builder.mutation<any, { id: string; data: any }>({
             query: ({ id, data }) => ({
                 url: `blog/${id}`,
                 method: "PUT",

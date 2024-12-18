@@ -68,22 +68,36 @@ const Page = () => {
     setSubFeatureImage2Preview(NewsData?.news?.subFeatureImage2 || null);
   }, [NewsData]);
 
+  const isS3Url = (url: string) => {
+    const s3UrlRegex = /^https:\/\/emerge-x-web\.s3\.us-east-1\.amazonaws\.com\//;
+    return s3UrlRegex.test(url);
+  };
+
+
   const isBase64 = (str: string) => {
     // A regex to check if the string is base64
     const base64Regex = /^([A-Za-z0-9+/=]{4})*(?:[A-Za-z0-9+/=]{2}==|[A-Za-z0-9+/=]{3}=)?$/;
     return base64Regex.test(str);
   };
 
+
   const handleHeroSubmit = async (data: NewsSectionData) => {
     setIsLoading(true)
     if (id !== "add-new") {
       try {
-        // const updatedData = {
-        //   ...data,
-        //   bannerImage: isBase64(data?.bannerImage as string) ? data.bannerImage : null,
-        //   futureImages: isBase64(data?.futureImages as string) ? data.futureImages : null,
-        // };
-        await updateNews({ id: id as string, data }).unwrap();
+        const updatedData = {
+          ...data,
+          // heroBanner: isBase64(data?.heroBanner as string) ? data.heroBanner : null,
+          // featureImage: isBase64(data?.featureImage as string) ? data.featureImage : null,
+          // subFeatureImage1: isBase64(data?.subFeatureImage1 as string) ? data.subFeatureImage1 : null,
+          // subFeatureImage2: isBase64(data?.subFeatureImage2 as string) ? data.subFeatureImage2 : null,
+          heroBanner: isS3Url(data?.heroBanner as string) ? null : data.heroBanner,
+          featureImage: isS3Url(data?.featureImage as string) ? null : data.featureImage,
+          subFeatureImage1: isS3Url(data?.subFeatureImage1 as string) ? null : data.subFeatureImage1,
+          subFeatureImage2: isS3Url(data?.subFeatureImage2 as string) ? null : data.subFeatureImage2,
+        };
+        console.log("🚀 ~ handleHeroSubmit ~ updatedData:", updatedData)
+        await updateNews({ id: id as string, data: updatedData }).unwrap();
         toast.success("News updated successfully!");
         router.push("/news");
         setIsLoading(false)
