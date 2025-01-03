@@ -99,6 +99,13 @@ export function DataTableDemo({ data, refetch }: { data: any[], refetch: () => v
             }</div>,
         },
         {
+            accessorKey: "description",
+            header: "Description",
+            cell: ({ row }) => (
+                <div className="capitalize">{row.getValue("description")}</div>
+            ),
+        },
+        {
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {

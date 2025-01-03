@@ -214,15 +214,16 @@ const BlogDetailsPage = () => {
 
                                 {/* Description */}
                                 <div>
-                                    <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                    <textarea
-                                        id="description"
-                                        {...register("description", { required: "Description is required" })}
-                                        rows={4}
-                                        className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                    {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>}
-                                </div>
+  <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+  <RichTextEditor
+    value={watch("description")} // Watch the form value for "description"
+    setValue={(value) => setValue("description", value)}  // Update the "description" field in the form
+  />
+  {errors.description && (
+    <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
+  )}
+</div>
+
 
 
                                 {/* Poster Image */}

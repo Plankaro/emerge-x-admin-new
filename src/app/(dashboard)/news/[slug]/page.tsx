@@ -6,6 +6,8 @@ import { useCreateNewsMutation, useGetSingleNewsQuery, useUpdateNewsMutation } f
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
+import RichTextEditor from "@/components/blogs/ritch-text-editor";
+
 
 export interface NewsSectionData {
   heading: string;
@@ -25,6 +27,7 @@ const Page = () => {
   const {
     register,
     handleSubmit,
+    watch,
     control,
     formState: { errors },
     setValue
@@ -195,12 +198,10 @@ const Page = () => {
             {/* Description */}
             <div>
               <label htmlFor="heroDescription" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-              <textarea
-                id="heroDescription"
-                {...register("mainDescription", { required: "Description is required" })}
-                rows={4}
-                className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <RichTextEditor
+    value={watch("mainDescription")} // Watch the form value for "mainDescription"
+    setValue={(value) => setValue("mainDescription", value)}  // Update the "mainDescription" field in the form
+  />
               {errors.mainDescription && <p className="mt-1 text-sm text-red-600">{errors.mainDescription.message}</p>}
             </div>
 
@@ -250,22 +251,19 @@ const Page = () => {
             {/* Description 1 */}
             <div>
               <label htmlFor="description1" className="block text-sm font-medium text-gray-700 mb-2">Description 2  </label>
-              <textarea
-                id="description1"
-                {...register("description1", { required: "Description is required" })}
-                rows={4}
-                className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <RichTextEditor
+    value={watch("description1")} // Watch the form value for "description1"
+    setValue={(value) => setValue("description1", value)}  // Update the "description1" field in the form
+  />
               {errors.description1 && <p className="mt-1 text-sm text-red-600">{errors.description1.message}</p>}
             </div>
+            
             <div>
               <label htmlFor="description2" className="block text-sm font-medium text-gray-700 mb-2">Description 1</label>
-              <textarea
-                id="description2"
-                {...register("description2", { required: "Description is required" })}
-                rows={4}
-                className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <RichTextEditor
+    value={watch("description2")} // Watch the form value for "description1"
+    setValue={(value) => setValue("description2", value)}  // Update the "description1" field in the form
+  />
               {errors.description2 && <p className="mt-1 text-sm text-red-600">{errors.description2.message}</p>}
             </div>
 
@@ -350,12 +348,10 @@ const Page = () => {
 
             <div>
               <label htmlFor="finalDescription" className="block text-sm font-medium text-gray-700 mb-2">Description </label>
-              <textarea
-                id="finalDescription"
-                {...register("finalDescription", { required: "Description is required" })}
-                rows={4}
-                className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <RichTextEditor
+    value={watch("finalDescription")} // Watch the form value for "description1"
+    setValue={(value) => setValue("finalDescription", value)}  // Update the "description1" field in the form
+  />
               {errors.finalDescription && <p className="mt-1 text-sm text-red-600">{errors.finalDescription.message}</p>}
             </div>
 
