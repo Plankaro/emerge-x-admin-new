@@ -100,6 +100,13 @@ const ContactTable: React.FC<{ data: Contact[], refetch: () => void }> = ({
             }</div>,
         },
         {
+            accessorKey: "note",
+            header: "Message",
+            cell: ({ row }) => <div className="lowercase">{
+                row.getValue("note")
+            }</div>,
+        },
+        {
             accessorKey: "mobile",
             header: "Mobile",
             cell: ({ row }) => <div className="lowercase">{
