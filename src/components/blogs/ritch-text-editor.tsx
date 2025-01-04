@@ -1,76 +1,63 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Editor } from "@tinymce/tinymce-react";
-import Head from "next/head"; // Import next/head to inject the script
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css"; // Quill's CSS for the editor
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils"; // Helper for classnames from ShadCN
+
+// Dynamically load react-quill to prevent SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface RichTextEditorProps {
-  placeholder?: string;
-  setValue?: (value: string) => void;
-  value: string;
+    placeholder?: string;
+    setValue?: (value: string) => void;
+    value: string;
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ placeholder, setValue, value }) => {
-  const [editorLoaded, setEditorLoaded] = useState(false);
 
-  // Load the TinyMCE script dynamically
-  useEffect(() => {
-    // Inject the TinyMCE CDN script in the head tag when the component is mounted
-    const script = document.createElement("script");
-    script.src = "https://cdn.tiny.cloud/1/ar3vmejkekgibkqlwag1zjadp2yqtmfa8m9re2vpuo1e5oi4/tinymce/7/tinymce.min.js";
-    script.async = true;
-    script.referrerPolicy = "origin";
-    document.head.appendChild(script);
 
-    script.onload = () => {
-      setEditorLoaded(true); // Set the editor as loaded once the script is ready
-    };
+    const modules = {
+        toolbar: [
 
-    return () => {
-      // Clean up the script when the component is unmounted
-      document.head.removeChild(script);
-    };
-  }, []);
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-  const handleEditorChange = (content: string) => {
-    if (setValue) {
-      setValue(content); // Pass the content to the parent component
+            [{ 'font': [] }],
+
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
+            ['link', 'image', 'video', 'formula'],
+
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+
+
+
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'align': [] }],
+
+            ['clean']                                         // remove formatting button
+        ]
     }
-  };
 
-  return (
-    <div className="p-4 border rounded-md shadow-sm bg-white h-80">
-      <h2 className="text-lg font-semibold mb-2">Rich Text Editor</h2>
-      {editorLoaded && (
-        <Editor      apiKey='ar3vmejkekgibkqlwag1zjadp2yqtmfa8m9re2vpuo1e5oi4'
-
-          value={value}
-          init={{
-            height: 260,
-            menubar: false,
-            plugins: [
-              "advlist", "autolink", "lists", "link", "image", "charmap", "preview", "anchor",
-              "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table", "help", "wordcount",
-              "checklist", "mediaembed", "casechange", "export", "formatpainter", "pageembed", "a11ychecker",
-              "tinymcespellchecker", "permanentpen", "powerpaste", "advtable", "advcode", "editimage", "advtemplate",
-              "ai", "mentions", "tinycomments", "tableofcontents", "footnotes", "mergetags", "autocorrect", "typography",
-              "inlinecss", "markdown", "importword", "exportword", "exportpdf"
-            ],
-            toolbar: "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-            mergetags_list: [
-              { value: 'First.Name', title: 'First Name' },
-              { value: 'Email', title: 'Email' },
-            ],
-            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
-            apiKey: "ar3vmejkekgibkqlwag1zjadp2yqtmfa8m9re2vpuo1e5oi4", // Your TinyMCE API Key
-          }}
-          onEditorChange={handleEditorChange}
-        />
-      )}
-    </div>
-  );
+    return (
+        <div className="p-4 border rounded-md shadow-sm bg-white h-80">
+            <h2 className="text-lg font-semibold mb-2">Rich Text Editor</h2>
+            <ReactQuill
+                theme="snow"
+                value={value}
+                onChange={setValue}
+                modules={modules}
+                placeholder={placeholder || "Write something..."}
+                className="h-40 mb-4"
+            />
+        </div>
+    );
 };
 
 export default RichTextEditor;
