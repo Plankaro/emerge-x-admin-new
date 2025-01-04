@@ -27,8 +27,7 @@ const page = () => {
 
     const router = useRouter();
     // const [deleteBlog,] = useDeleteBlogMutation();
-    const { data, refetch } = useGetDemoRequestsQuery({ page: 1, limit: 10 })
-
+    const { data, refetch } = useGetDemoRequestsQuery({ page: 1, limit: 100 })
 
     return (
         <div>

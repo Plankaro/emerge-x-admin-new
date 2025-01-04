@@ -61,7 +61,6 @@ const ContactTable: React.FC<{ data: Contact[], refetch: () => void }> = ({
     data,
     refetch
 }) => {
-    console.log("🚀 ~ data============>>:", data)
 
     const router = useRouter();
 
@@ -101,7 +100,7 @@ const ContactTable: React.FC<{ data: Contact[], refetch: () => void }> = ({
         },
         {
             accessorKey: "note",
-            header: "Message",
+            header: "Description",
             cell: ({ row }) => <div className="lowercase">{
                 row.getValue("note")
             }</div>,
