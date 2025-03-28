@@ -56,10 +56,13 @@ export function DataTableDemo({ data, refetch }: { data: any[], refetch: () => v
 
     const router = useRouter();
     const [deleteBlog] = useDeleteBlogMutation();
+
+    const [loading,setLoading] = React.useState(false)
+
     const handleDelete = async (id: string) => {
-        console.log("🚀 ~ handleDelete ~ id:", id)
         if (window.confirm(`Are you sure you want to delete blog with ID: ${id}?`)) {
 
+            setLoading(true)
             const promise = deleteBlog(id).unwrap()
             toast.promise(promise, {
                 loading: "Deleting blog...",
@@ -71,9 +74,11 @@ export function DataTableDemo({ data, refetch }: { data: any[], refetch: () => v
                 await promise;
                 // toast.success("Blog deleted successfully!");
                 refetch();
+                setLoading(false)
             } catch (error) {
                 // toast.error("Error deleting blog. Please try again.");
                 console.error("Error deleting blog:", error);
+                setLoading(false)
             }
         }
     };
@@ -119,6 +124,7 @@ export function DataTableDemo({ data, refetch }: { data: any[], refetch: () => v
                             Edit/View
                         </Button>
                         <Button
+                            disabled={loading}
                             variant="ghost"
                             className="bg-[#f44336] hover:bg-[#f44336] text-white px-4 py-2 rounded-md mb-2"
                             onClick={() => handleDelete(payment._id)}

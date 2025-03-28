@@ -210,7 +210,7 @@ const Page = () => {
                     <input
                       id="heroBanner"
                       type="file"
-                      accept="image/*"
+                      accept="image/png, image/jpeg, image/jpg" 
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         if (file) {
@@ -262,7 +262,7 @@ const Page = () => {
                     <input
                       id="featureImage"
                       type="file"
-                      accept="image/*"
+                      accept="image/png, image/jpeg, image/jpg" 
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         if (file) {
@@ -323,7 +323,7 @@ const Page = () => {
                     <input
                       id="subFeatureImage1"
                       type="file"
-                      accept="image/*"
+                      accept="image/png, image/jpeg, image/jpg" 
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         if (file) {
@@ -361,7 +361,7 @@ const Page = () => {
                     <input
                       id="subFeatureImage2"
                       type="file"
-                      accept="image/*"
+                      accept="image/png, image/jpeg, image/jpg" 
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         if (file) {
@@ -401,6 +401,7 @@ const Page = () => {
             {/* Submit Button */}
             <div>
               <Button
+              disabled={isLoading}
                 type="button"
                 onClick={handleSubmit(handleHeroSubmit)}
                 className=" bg-[#3DA229B3] text-white py-2 px-4 rounded-lg shadow-md hover:bg-[#3DA229] focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -80,16 +80,16 @@ const BlogDetailsPage = () => {
 
     const handleHeroSubmit = async (data: BlogsFormData) => {
         setIsLoading(true)
-            if (!data.description) {
-              toast.error("Description is required!");
-              setIsLoading(false);
-              return;
-            }
-            if (!data.htmlBody) {
-              toast.error("Body is required!");
-              setIsLoading(false);
-              return;
-            }
+        if (!data.description) {
+            toast.error("Description is required!");
+            setIsLoading(false);
+            return;
+        }
+        if (!data.htmlBody) {
+            toast.error("Body is required!");
+            setIsLoading(false);
+            return;
+        }
         if (id !== "add-new") {
             try {
                 const updatedData = {
@@ -192,7 +192,7 @@ const BlogDetailsPage = () => {
                                                 <input
                                                     id="bannerImage"
                                                     type="file"
-                                                    accept="image/*"
+                                                    accept="image/png, image/jpeg, image/jpg"
                                                     onChange={(event) => {
                                                         const file = event.target.files?.[0] || null;
                                                         if (file) {
@@ -223,15 +223,15 @@ const BlogDetailsPage = () => {
 
                                 {/* Description */}
                                 <div>
-  <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-  <RichTextEditor
-    value={watch("description")} // Watch the form value for "description"
-    setValue={(value) => setValue("description", value)}  // Update the "description" field in the form
-  />
-  {errors.description && (
-    <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
-  )}
-</div>
+                                    <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                    <RichTextEditor
+                                        value={watch("description")} // Watch the form value for "description"
+                                        setValue={(value) => setValue("description", value)}  // Update the "description" field in the form
+                                    />
+                                    {errors.description && (
+                                        <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
+                                    )}
+                                </div>
 
 
 
@@ -247,7 +247,7 @@ const BlogDetailsPage = () => {
                                                 <input
                                                     id="futureImages"
                                                     type="file"
-                                                    accept="image/*"
+                                                    accept="image/png, image/jpeg, image/jpg"
                                                     onChange={(event) => {
                                                         const file = event.target.files?.[0] || null;
                                                         if (file) {
@@ -314,6 +314,7 @@ const BlogDetailsPage = () => {
                                 {/* Submit Button */}
                                 <div className="pt-24">
                                     <Button
+                                    disabled={isLoading}
                                         type="button"
                                         onClick={handleSubmit(handleHeroSubmit)}
                                         className=" bg-[#3DA229B3] text-white py-2 px-4 rounded-lg shadow-md hover:bg-[#3DA229] focus:outline-none focus:ring-2 focus:ring-blue-500"

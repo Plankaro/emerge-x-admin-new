@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import NeswCardtable from '@/components/news/NeswCardtable'
 import { NewsDataTable } from '@/components/news/news-data-table';
 import { useGetNewsQuery } from '@/store/api/news';
@@ -11,7 +11,10 @@ export interface HeroSectionData {
   description: string;
 }
 const page = () => {
-  const { data, refetch } = useGetNewsQuery({ page: 0, limit: 100 });
+  const { data, refetch } = useGetNewsQuery({ page: 0, limit: 1000 });
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
   return (
     <div className=" w-full container mx-auto  pt-4 space-y-5">
       {/* <HeroSection onSubmit={handleHeroSubmit} headingText="Hero Section Details"/> */}

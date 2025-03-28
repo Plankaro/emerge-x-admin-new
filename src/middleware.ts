@@ -3,8 +3,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const token = cookies().get('token'); // Get the token from cookies
-  console.log("🚀 ~ middleware ~ token:", token);
+  const token = request.cookies.get('token')?.value;
 
   // Handle API forwarding for /v1 routes
   if (request.nextUrl.pathname.startsWith('/v1')) {

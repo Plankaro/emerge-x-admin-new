@@ -63,23 +63,35 @@ export interface NewsResponseType {
 export function NewsDataTable({ data, refetch }: { data: NewsResponseType[], refetch: () => void }) {
     console.log("🚀 ~ NewsDataTable ~ data:", data)
 
+    const [loading,setLoading] = React.useState(false)
+
     const [deleteNews, isLoading] = useDeleteNewsMutation();
     const router = useRouter();
 
 
     const handleDeleteCard = async (id: string) => {
         if (window.confirm(`Are you sure you want to delete News with ID: ${id}?`)) {
+            setLoading(true);
+    
+            const deletePromise = deleteNews(id).unwrap();
+    
+            toast.promise(deletePromise, {
+                loading: "Deleting news...",
+                success: "News deleted successfully!",
+                error: "Error deleting news. Please try again.",
+            });
+    
             try {
-                await deleteNews(id).unwrap();
-                toast.success("News deleted successfully!");
+                await deletePromise;
                 refetch();
             } catch (error) {
-                toast.error("Error deleting blog. Please try again.");
-                console.error("Error deleting blog:", error);
+                console.error("Error deleting news:", error);
+            } finally {
+                setLoading(false);
             }
         }
     };
-
+    
     const columns: ColumnDef<NewsResponseType>[] = [
         {
             accessorKey: "_id",
@@ -117,6 +129,7 @@ export function NewsDataTable({ data, refetch }: { data: NewsResponseType[], ref
                             Edit/View
                         </Button>
                         <Button
+                        disabled={loading}
                             variant="ghost"
                             className="bg-[#f44336] hover:bg-[#f44336] text-white px-4 py-2 rounded-md mb-2"
                             onClick={() => handleDeleteCard(payment._id)}

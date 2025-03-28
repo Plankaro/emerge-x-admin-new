@@ -1,6 +1,6 @@
 'use client'
 import { useGetBlogsQuery } from '@/store/api/blogs';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Loader from '../Loader';
 import {
     Table,
@@ -22,54 +22,51 @@ export interface Blog {
 }
 
 export const RecentBlogs: React.FC = () => {
-
-    // const [page, setPage] = useState<number>(1);
-    // const [limit, setLimit] = useState<number>(10);
-
     const [blogs, setBlogs] = useState<Blog[]>([]);
-
     const { data: blogsData } = useGetBlogsQuery({ page: 1, limit: 10 });
 
     useEffect(() => {
         if (blogsData && blogsData?.blog) {
-            setBlogs(blogsData?.blog);
+            setBlogs(blogsData?.blog.slice(0, 5)); // Show only the latest 5 blogs
         }
     }, [blogsData]);
 
     const formatDate = (dateString: string) => {
-        const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
-        const date = new Date(dateString);
-        return date.toLocaleDateString("en-US", options);  // Change locale to suit your needs
+        return new Date(dateString).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+        });
     };
 
     return (
-        <div className="w-full p-4 bg-white shadow-lg rounded-lg">
+        <div className="w-full p-4 bg-white shadow-lg rounded-lg h-auto min-h-[25rem]">
             <h2 className="text-xl font-semibold mb-4">Recent Blogs</h2>
             <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Title</TableHead>
-                        <TableHead>Date</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {blogs.length > 0 ? (
-                        blogs.map((blog) => (
-                            <TableRow key={blog._id}>
-                                <TableCell>{blog.title}</TableCell>
-                                <TableCell>{formatDate(blog.createdAt)}</TableCell>
-                            </TableRow>
-                        ))
-                    ) : (
-                        <TableRow>
-                            <TableCell colSpan={2}>
-                                <Loader />
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
+    <TableHeader>
+        <TableRow>
+            <TableHead className="w-3/5 text-left">Title</TableHead>
+            <TableHead className="w-2/5 text-left">Date</TableHead>
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        {blogs.length > 0 ? (
+            blogs.map((blog) => (
+                <TableRow key={blog._id} className="min-h-[50px]">
+                    <TableCell className="break-words">{blog.title}</TableCell>
+                    <TableCell>{formatDate(blog.createdAt)}</TableCell>
+                </TableRow>
+            ))
+        ) : (
+            <TableRow>
+                <TableCell colSpan={2}>
+                    <Loader />
+                </TableCell>
+            </TableRow>
+        )}
+    </TableBody>
+</Table>
 
         </div>
-    )
-}
+    );
+};

@@ -56,6 +56,9 @@ const BlogDetails = () => {
         }
     }, [blogsData]);
 
+    useEffect(() => {
+      refetch();
+    }, [refetch]);
 
     const handleHeroDialogOpen = () => {
         setHeroSectionDialogOpen(true);
