@@ -79,8 +79,17 @@ const BlogDetailsPage = () => {
     };
 
     const handleHeroSubmit = async (data: BlogsFormData) => {
-        console.log(data)
         setIsLoading(true)
+            if (!data.description) {
+              toast.error("Description is required!");
+              setIsLoading(false);
+              return;
+            }
+            if (!data.htmlBody) {
+              toast.error("Body is required!");
+              setIsLoading(false);
+              return;
+            }
         if (id !== "add-new") {
             try {
                 const updatedData = {

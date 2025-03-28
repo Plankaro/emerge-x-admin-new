@@ -85,6 +85,54 @@ const Page = () => {
 
 
   const handleHeroSubmit = async (data: NewsSectionData) => {
+    // Validate required fields
+    if (!data.heading) {
+      toast.error("Heading is required!");
+      setIsLoading(false);
+      return;
+    }
+    if (!data.heroBanner) {
+      toast.error("Banner image is required!");
+      setIsLoading(false);
+      return;
+    }
+    if (!data.mainDescription) {
+      toast.error("Description is required!");
+      setIsLoading(false);
+      return;
+    }
+    if (!data.featureImage) {
+      toast.error("Poster Image is required!");
+      setIsLoading(false);
+      return;
+    }
+    if (!data.description1) {
+      toast.error("Description 1 is required!");
+      setIsLoading(false);
+      return;
+    }
+    if (!data.description2) {
+      toast.error("Description 2 is required!");
+      setIsLoading(false);
+      return;
+    }
+  
+    if (!data.subFeatureImage1) {
+      toast.error("Sub Feature Image 1 is required!");
+      setIsLoading(false);
+      return;
+    }
+    if (!data.subFeatureImage2) {
+      toast.error("Sub Feature Image 2 is required!");
+      setIsLoading(false);
+      return;
+    }
+    if (!data.finalDescription) {
+      toast.error("Final Description is required!");
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true)
     if (id !== "add-new") {
       try {
@@ -123,9 +171,6 @@ const Page = () => {
     }
   };
 
-
-
-
   return (
     <div className="w-full container mx-auto pt-4 space-y-5">
       <div className="border rounded p-4">
@@ -160,7 +205,6 @@ const Page = () => {
               <Controller
                 name="heroBanner"
                 control={control}
-                rules={{ required: "Image is required" }}
                 render={({ field }) => (
                   <>
                     <input
@@ -199,9 +243,9 @@ const Page = () => {
             <div>
               <label htmlFor="heroDescription" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
               <RichTextEditor
-    value={watch("mainDescription")} // Watch the form value for "mainDescription"
-    setValue={(value) => setValue("mainDescription", value)}  // Update the "mainDescription" field in the form
-  />
+                value={watch("mainDescription")} // Watch the form value for "mainDescription"
+                setValue={(value) => setValue("mainDescription", value)}  // Update the "mainDescription" field in the form
+              />
               {errors.mainDescription && <p className="mt-1 text-sm text-red-600">{errors.mainDescription.message}</p>}
             </div>
 
@@ -213,7 +257,6 @@ const Page = () => {
               <Controller
                 name="featureImage"
                 control={control}
-                rules={{ required: "Image is required" }}
                 render={({ field }) => (
                   <>
                     <input
@@ -250,20 +293,20 @@ const Page = () => {
 
             {/* Description 1 */}
             <div>
-              <label htmlFor="description1" className="block text-sm font-medium text-gray-700 mb-2">Description 2  </label>
+              <label htmlFor="description1" className="block text-sm font-medium text-gray-700 mb-2">Description 1  </label>
               <RichTextEditor
-    value={watch("description1")} // Watch the form value for "description1"
-    setValue={(value) => setValue("description1", value)}  // Update the "description1" field in the form
-  />
+                value={watch("description1")} // Watch the form value for "description1"
+                setValue={(value) => setValue("description1", value)}  // Update the "description1" field in the form
+              />
               {errors.description1 && <p className="mt-1 text-sm text-red-600">{errors.description1.message}</p>}
             </div>
-            
+
             <div>
-              <label htmlFor="description2" className="block text-sm font-medium text-gray-700 mb-2">Description 1</label>
+              <label htmlFor="description2" className="block text-sm font-medium text-gray-700 mb-2">Description 2</label>
               <RichTextEditor
-    value={watch("description2")} // Watch the form value for "description1"
-    setValue={(value) => setValue("description2", value)}  // Update the "description1" field in the form
-  />
+                value={watch("description2")} // Watch the form value for "description1"
+                setValue={(value) => setValue("description2", value)}  // Update the "description1" field in the form
+              />
               {errors.description2 && <p className="mt-1 text-sm text-red-600">{errors.description2.message}</p>}
             </div>
 
@@ -347,11 +390,11 @@ const Page = () => {
             </div>
 
             <div>
-              <label htmlFor="finalDescription" className="block text-sm font-medium text-gray-700 mb-2">Description </label>
+              <label htmlFor="finalDescription" className="block text-sm font-medium text-gray-700 mb-2">Final Description </label>
               <RichTextEditor
-    value={watch("finalDescription")} // Watch the form value for "description1"
-    setValue={(value) => setValue("finalDescription", value)}  // Update the "description1" field in the form
-  />
+                value={watch("finalDescription")} // Watch the form value for "description1"
+                setValue={(value) => setValue("finalDescription", value)}  // Update the "description1" field in the form
+              />
               {errors.finalDescription && <p className="mt-1 text-sm text-red-600">{errors.finalDescription.message}</p>}
             </div>
 
