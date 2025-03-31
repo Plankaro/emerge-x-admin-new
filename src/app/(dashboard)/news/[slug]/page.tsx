@@ -149,6 +149,7 @@ const Page = () => {
         };
         console.log("🚀 ~ handleHeroSubmit ~ updatedData:", updatedData)
         await updateNews({ id: id as string, data: updatedData }).unwrap();
+        await refetch(); 
         toast.success("News updated successfully!");
         router.push("/news");
         setIsLoading(false)
@@ -159,6 +160,7 @@ const Page = () => {
     } else {
       try {
         await createNews(data).unwrap();
+        await refetch(); 
         setIsLoading(false)
         toast.success("News created successfully!");
         router.push("/news");

@@ -99,6 +99,7 @@ const BlogDetailsPage = () => {
                 };
                 console.log("🚀 ~ handleHeroSubmit ~ updatedData:", updatedData)
                 await updateBlog({ id: id as string, data: updatedData }).unwrap();
+               await refetch(); 
                 toast.success("Blogs updated successfully!");
                 router.push("/blogs");
                 setIsLoading(false)
@@ -109,6 +110,7 @@ const BlogDetailsPage = () => {
         } else {
             try {
                 await createBlog(data).unwrap();
+                await refetch(); 
                 setIsLoading(false)
                 toast.success("Blogs created successfully!");
                 router.push("/blogs");
