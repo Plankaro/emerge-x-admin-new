@@ -196,6 +196,13 @@ const BlogDetailsPage = () => {
                                                     onChange={(event) => {
                                                         const file = event.target.files?.[0] || null;
                                                         if (file) {
+                                                            if (file.size > 1048576) {
+                                                                toast.error("File size must be less than 1MB"); 
+                                                                setHeroBannerPreview(null);  
+                                                                field.onChange(null);  
+                                                                event.target.value = ""; 
+                                                                return;
+                                                              }
                                                             const previewUrl = URL.createObjectURL(file);
                                                             setHeroBannerPreview(previewUrl)
                                                             const reader = new FileReader();
@@ -251,6 +258,13 @@ const BlogDetailsPage = () => {
                                                     onChange={(event) => {
                                                         const file = event.target.files?.[0] || null;
                                                         if (file) {
+                                                            if (file.size > 1048576) {
+                                                                toast.error("File size must be less than 1MB"); 
+                                                                setFeatureImagePreview(null);  
+                                                                field.onChange(null);  
+                                                                event.target.value = ""; 
+                                                                return;
+                                                              }
                                                             const previewUrl = URL.createObjectURL(file);
                                                             setFeatureImagePreview(previewUrl)
                                                             const reader = new FileReader();

@@ -116,7 +116,7 @@ const Page = () => {
       setIsLoading(false);
       return;
     }
-  
+
     if (!data.subFeatureImage1) {
       toast.error("Sub Feature Image 1 is required!");
       setIsLoading(false);
@@ -210,10 +210,17 @@ const Page = () => {
                     <input
                       id="heroBanner"
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg" 
+                      accept="image/png, image/jpeg, image/jpg"
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         if (file) {
+                          if (file.size > 1048576) {
+                            toast.error("File size must be less than 1MB");
+                            setHeroBannerPreview(null);
+                            field.onChange(null);
+                            event.target.value = "";
+                            return;
+                          }
                           const previewUrl = URL.createObjectURL(file);
                           setHeroBannerPreview(previewUrl)
                           const reader = new FileReader();
@@ -262,10 +269,17 @@ const Page = () => {
                     <input
                       id="featureImage"
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg" 
+                      accept="image/png, image/jpeg, image/jpg"
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         if (file) {
+                          if (file.size > 1048576) {
+                            toast.error("File size must be less than 1MB");
+                            setFeatureImagePreview(null);
+                            field.onChange(null);
+                            event.target.value = "";
+                            return;
+                          }
                           const previewUrl = URL.createObjectURL(file);
                           setFeatureImagePreview(previewUrl)
                           const reader = new FileReader();
@@ -323,10 +337,17 @@ const Page = () => {
                     <input
                       id="subFeatureImage1"
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg" 
+                      accept="image/png, image/jpeg, image/jpg"
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         if (file) {
+                          if (file.size > 1048576) {
+                            toast.error("File size must be less than 1MB");
+                            setSubFeatureImage1Preview(null);
+                            field.onChange(null);
+                            event.target.value = "";
+                            return;
+                          }
                           const previewUrl = URL.createObjectURL(file);
                           setSubFeatureImage1Preview(previewUrl)
                           const reader = new FileReader();
@@ -361,10 +382,17 @@ const Page = () => {
                     <input
                       id="subFeatureImage2"
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg" 
+                      accept="image/png, image/jpeg, image/jpg"
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         if (file) {
+                          if (file.size > 1048576) {
+                            toast.error("File size must be less than 1MB");
+                            setSubFeatureImage2Preview(null);
+                            field.onChange(null);
+                            event.target.value = "";
+                            return;
+                          }
                           const previewUrl = URL.createObjectURL(file);
                           setSubFeatureImage2Preview(previewUrl)
                           const reader = new FileReader();
@@ -401,7 +429,7 @@ const Page = () => {
             {/* Submit Button */}
             <div>
               <Button
-              disabled={isLoading}
+                disabled={isLoading}
                 type="button"
                 onClick={handleSubmit(handleHeroSubmit)}
                 className=" bg-[#3DA229B3] text-white py-2 px-4 rounded-lg shadow-md hover:bg-[#3DA229] focus:outline-none focus:ring-2 focus:ring-blue-500"
