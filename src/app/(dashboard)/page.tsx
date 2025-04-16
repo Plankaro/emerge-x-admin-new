@@ -6,11 +6,7 @@ import { RecentNews } from "@/components/home/recent-news";
 const Page: React.FC = () => {
   return (
     <div className="flex flex-col w-full">
-      {/* <div className="flex w-full mt-4 ml-4 gap-4 flex-col md:flex-row">
-        <div className="w-full">
-          <StatisticsCards />
-        </div>
-      </div> */}
+    
 
       <div className="flex w-full mt-4 gap-4 flex-col lg:flex-row">
         <div className="w-full lg:w-1/2">
