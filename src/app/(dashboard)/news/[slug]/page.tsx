@@ -85,53 +85,6 @@ const Page = () => {
 
 
   const handleHeroSubmit = async (data: NewsSectionData) => {
-    // Validate required fields
-    if (!data.heading) {
-      toast.error("Heading is required!");
-      setIsLoading(false);
-      return;
-    }
-    if (!data.heroBanner) {
-      toast.error("Banner image is required!");
-      setIsLoading(false);
-      return;
-    }
-    if (!data.mainDescription) {
-      toast.error("Description is required!");
-      setIsLoading(false);
-      return;
-    }
-    if (!data.featureImage) {
-      toast.error("Poster Image is required!");
-      setIsLoading(false);
-      return;
-    }
-    if (!data.description1) {
-      toast.error("Description 1 is required!");
-      setIsLoading(false);
-      return;
-    }
-    if (!data.description2) {
-      toast.error("Description 2 is required!");
-      setIsLoading(false);
-      return;
-    }
-
-    if (!data.subFeatureImage1) {
-      toast.error("Sub Feature Image 1 is required!");
-      setIsLoading(false);
-      return;
-    }
-    if (!data.subFeatureImage2) {
-      toast.error("Sub Feature Image 2 is required!");
-      setIsLoading(false);
-      return;
-    }
-    if (!data.finalDescription) {
-      toast.error("Final Description is required!");
-      setIsLoading(false);
-      return;
-    }
 
     setIsLoading(true)
     if (id !== "add-new") {

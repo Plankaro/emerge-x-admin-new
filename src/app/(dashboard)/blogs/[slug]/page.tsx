@@ -80,16 +80,7 @@ const BlogDetailsPage = () => {
 
     const handleHeroSubmit = async (data: BlogsFormData) => {
         setIsLoading(true)
-        if (!data.description) {
-            toast.error("Description is required!");
-            setIsLoading(false);
-            return;
-        }
-        if (!data.htmlBody) {
-            toast.error("Body is required!");
-            setIsLoading(false);
-            return;
-        }
+      
         if (id !== "add-new") {
             try {
                 const updatedData = {
@@ -150,10 +141,7 @@ const BlogDetailsPage = () => {
                                         id="title"
                                         {...register("title", {
                                             required: "Heading is required",
-                                            maxLength: {
-                                                value: 50,
-                                                message: "Heading must be 50 characters or less",
-                                            },
+                                           
                                         })}
                                         type="text"
                                         className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -170,11 +158,7 @@ const BlogDetailsPage = () => {
                                     <input
                                         id="authorName"
                                         {...register("authorName", {
-                                            required: "Heading is required",
-                                            maxLength: {
-                                                value: 50,
-                                                message: "Heading must be 50 characters or less",
-                                            },
+                                           
                                         })}
                                         type="text"
                                         className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -188,7 +172,6 @@ const BlogDetailsPage = () => {
                                     <Controller
                                         name="bannerImage"
                                         control={control}
-                                        rules={{ required: "Image is required" }}
                                         render={({ field }) => (
                                             <>
                                                 <input
@@ -250,7 +233,6 @@ const BlogDetailsPage = () => {
                                     <Controller
                                         name="futureImages"
                                         control={control}
-                                        rules={{ required: "Image is required" }}
                                         render={({ field }) => (
                                             <>
                                                 <input
