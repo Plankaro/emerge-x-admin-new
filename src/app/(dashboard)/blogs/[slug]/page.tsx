@@ -15,6 +15,7 @@ export interface BlogsFormData {
     description: string;
     bannerImage: string | null;
     futureImages: string | null;
+    mainDescription?:string | null;
 }
 
 
@@ -54,7 +55,7 @@ const BlogDetailsPage = () => {
     }, [pathname]);
 
     useEffect(() => {
-
+        
 
         setValue("title", BlogsData?.blog?.title);
         setValue("htmlBody", BlogsData?.blog?.htmlBody);
@@ -62,6 +63,7 @@ const BlogDetailsPage = () => {
         setValue("bannerImage", BlogsData?.blog?.bannerImage);
         setValue("futureImages", BlogsData?.blog?.futureImages);
         setValue("authorName", BlogsData?.blog?.authorName);
+        setValue("mainDescription", BlogsData?.blog?.mainDescription);
         setHeroBannerPreview(BlogsData?.blog?.bannerImage || null);
         setFeatureImagePreview(BlogsData?.blog?.futureImages || null);
         setIsLoading(false)
@@ -307,6 +309,22 @@ const BlogDetailsPage = () => {
                                     {errors.htmlBody && <p className="mt-1 text-sm text-red-600">{errors.htmlBody.message}</p>}
                                 </div>
 
+                                <div className="h-72">
+                                    <label htmlFor="mainDescription" className="block text-sm font-medium text-gray-700 mb-2">Main Description</label>
+                                    {/* <textarea
+                                        id="htmlBody"
+                                        {...register("htmlBody", { required: "HtmlBody is required" })}
+                                        rows={4}
+                                        className="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    /> */}
+
+
+                                    <RichTextEditor
+                                        value={watch("mainDescription")}
+                                        setValue={(value) => setValue("mainDescription", value)}
+                                    />
+                                    {errors.mainDescription && <p className="mt-1 text-sm text-red-600">{errors.mainDescription.message}</p>}
+                                </div>
 
 
                                 {/* Submit Button */}
