@@ -320,7 +320,7 @@ const BlogDetailsPage = () => {
 
 
                                     <RichTextEditor
-                                        value={watch("mainDescription")}
+                                        value={watch("mainDescription") ?? ""}
                                         setValue={(value) => setValue("mainDescription", value)}
                                     />
                                     {errors.mainDescription && <p className="mt-1 text-sm text-red-600">{errors.mainDescription.message}</p>}
