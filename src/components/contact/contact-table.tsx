@@ -101,10 +101,12 @@ const ContactTable: React.FC<{ data: Contact[], refetch: () => void }> = ({
         {
             accessorKey: "note",
             header: "Description",
-            cell: ({ row }) => <div className="lowercase">{
-                row.getValue("note")
-            }</div>,
-        },
+            cell: ({ row }) => (
+                <div className="text-sm lowercase whitespace-pre-wrap break-words max-w-xs">
+                    {row.getValue("note")}
+                </div>
+            ),
+        },              
         {
             accessorKey: "mobile",
             header: "Mobile",
